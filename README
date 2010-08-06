@@ -7,3 +7,11 @@ Documentation and usage examples will be forthcoming.
 
 Public testing, use, and development is encouraged, but test thoroughly for any critical applications.
 
+The function:
+fetchCalendar($events)
+
+The structure of $events[]:
+$events['$eventDayOfMonth'] = array( 'url' => $eventUrl, 'title' => $eventTitle );
+
+The output:
+An HTML calendar w/ linked events. Style to taste.
