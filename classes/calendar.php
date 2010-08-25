@@ -8,8 +8,9 @@ class Calendar
     }
 
     /* draws a calendar */
-    public function fetchCalendar($events)
+    public function fetchCalendar($events, $day_link_base = '')
     {
+    
            $month = (int) (@$_GET['month'] ? $_GET['month'] : date('m'));
            $year = (int)  (@$_GET['year'] ? $_GET['year'] : date('Y'));
        	/* draw table */
@@ -38,7 +39,12 @@ class Calendar
        	for($list_day = 1; $list_day <= $days_in_month; $list_day++):
        		$calendar.= '<td class="calendar-day">';
        			/* add in the day number */
-       			$calendar .= '<div class="day-number">'.$list_day.'</div>';
+       			if( $day_link_base != '') {
+       			      // if we want to link to a "daily" view of 
+                    $calendar .= '<div class="day-number"><a href="'.$day_link_base.'?date=' . $year.'_'.$month.'_'.$list_day.'">'.$list_day.'</a></div>';
+       			} else {
+           			$calendar .= '<div class="day-number">'.$list_day.'</div>';
+                }
                    $event_day = $year.'-'.$month.'-'.$list_day;
                    if(isset($events[$event_day])) {
                        foreach($events[$event_day] as $event) {
@@ -46,12 +52,11 @@ class Calendar
                             if( isset($event['detail']) ){
                                $calendar.= "<b>".$event['detail']."</b> - ";
                            }
-
                            $calendar .= '<a href="'.$event['url'].'">'.$event['title'].'</a>';
                            $calendar .= '</div>';
                        }
                    }       
-    		$calendar.= str_repeat('<p>&nbsp;</p>',2);			
+    		//$calendar.= str_repeat('<p>&nbsp;</p>',2);			
        		$calendar.= '</td>';
        		if($running_day == 6):
        			$calendar.= '</tr>';
