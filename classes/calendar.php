@@ -11,8 +11,9 @@ class Calendar
     public function fetchCalendar($events, $day_link_base = '')
     {
     
-           $month = (int) (@$_GET['month'] ? $_GET['month'] : date('m'));
-           $year = (int)  (@$_GET['year'] ? $_GET['year'] : date('Y'));
+        $month = (int) (@$_GET['month'] ? $_GET['month'] : date('m'));
+        $year = (int)  (@$_GET['year'] ? $_GET['year'] : date('Y'));
+
        	/* draw table */
        	$calendar = '<table cellpadding="0" cellspacing="0" class="calendar">';
     
@@ -52,11 +53,11 @@ class Calendar
                             if( isset($event['detail']) ){
                                $calendar.= "<b>".$event['detail']."</b> - ";
                            }
-                           $calendar .= '<a href="'.$event['url'].'">'.$event['title'].'</a>';
+                           $calendar .= '<a href="'.$event['url'].'" '.( isset($event['class']) ? 'class="' . $event['class'] .'"' : '' ).'>'.$event['title'].'</a>';
                            $calendar .= '</div>';
                        }
                    }       
-    		//$calendar.= str_repeat('<p>&nbsp;</p>',2);			
+		
        		$calendar.= '</td>';
        		if($running_day == 6):
        			$calendar.= '</tr>';
